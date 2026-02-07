@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G. de Provence - Le luxe naturel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --lavender: #8B7AA3;
+            --navy: #1D252C;
+            --cream: #F5F2ED;
+            --white: #FFFFFF;
+            --light-lavender: #C4B5D8;
+            --text-dark: #2C2C2C;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header Banner avec image abeille */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            min-height: 400px;
+            background-image: url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/9f904605-1ba8-44f6-9c95-bb22569c27c3');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--white);
+            padding: 20px;
+        }
+
+        .hero-tagline {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            font-style: italic;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container img {
+            height: 80px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--navy);
+            text-decoration: none;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--lavender);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--lavender);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 30px;
+            height: 3px;
+            background: var(--navy);
+            transition: 0.3s;
+        }
+
+        /* Sections */
+        section {
+            min-height: 80vh;
+            padding: 100px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-content {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        #accueil {
+            background-color: var(--cream);
+        }
+
+        #maison {
+            background-color: #EAE5DF;
+        }
+
+        #hotels {
+            background-color: var(--cream);
+        }
+
+        #spas {
+            background-color: #E8E0D8;
+        }
+
+        #signature-lobby {
+            background-color: var(--cream);
+        }
+
+        #contact {
+            background-color: #DDD8D0;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            color: var(--navy);
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            color: var(--navy);
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--lavender);
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .centered-text {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Cards et grilles */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        /* Engagements liste */
+        .engagements-list {
+            max-width: 900px;
+            margin: 50px auto;
+        }
+
+        .engagement-item {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: var(--white);
+            border-left: 4px solid var(--lavender);
+        }
+
+        .engagement-item h3 {
+            color: var(--navy);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .engagement-item p {
+            text-align: left;
+        }
+
+        /* Signatures olfactives */
+        .signatures-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .signature-item {
+            text-align: center;
+            flex: 0 1 250px;
+        }
+
+        .signature-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--lavender);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .signature-name {
+            font-size: 1.3rem;
+            color: var(--navy);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* Formulaire de contact */
+        .contact-form {
+            max-width: 700px;
+            margin: 50px auto;
+            background: var(--white);
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--navy);
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--lavender);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            background: var(--lavender);
+            color: var(--white);
+            padding: 15px 50px;
+            border: none;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .submit-btn:hover {
+            background: var(--navy);
+            transform: translateY(-2px);
+        }
+
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: var(--white);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer p {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .footer-tagline {
+            font-style: italic;
+            color: var(--light-lavender);
+            margin-top: 15px;
+        }
+
+        /* Image section */
+        .image-section {
+            width: 100%;
+            height: 500px;
+            background-image: url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/9de9ef74-879b-4b51-a5f5-85ae5b666b8d');
+            background-size: cover;
+            background-position: center;
+            margin: 60px 0;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s;
+            }
+
+            .nav-links.active {
+                max-height: 500px;
+            }
+
+            .nav-container {
+                padding: 0 20px;
+            }
+
+            .logo-container img {
+                height: 60px;
+            }
+
+            .hero-tagline {
+                font-size: 1.8rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 30px 20px;
+            }
+
+            .signatures-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-tagline">Né de la terre, façonné par la lumière</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/d7312e08-1f9f-49ff-8d07-fd343d63f038" alt="G. de Provence">
+            </div>
+            <div class="mobile-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#maison">Notre Maison</a></li>
+                <li><a href="#hotels">Hôtels de Luxe</a></li>
+                <li><a href="#spas">Spas</a></li>
+                <li><a href="#signature-lobby">Signature Lobby</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Section Accueil -->
+    <section id="accueil">
+        <div class="section-content">
+            <h1>Bienvenue chez G. de Provence</h1>
+            <div class="centered-text">
+                <p>Notre maison est née d'un attachement profond à la région, à ses plantes, à ses artisans, à son art de vivre.</p>
+                <p>Nous proposons des soins et des parfums d'ambiance inspirés du paysage provençal, en alliant ingrédients naturels, savoir-faire local et élégance contemporaine.</p>
+                <p style="font-style: italic; color: var(--lavender); font-size: 1.3rem; margin-top: 40px;">Le luxe naturel</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Notre Maison -->
+    <section id="maison">
+        <div class="section-content">
+            <h2>Notre Maison</h2>
+            <div class="centered-text">
+                <p>Il y a, au cœur de la Provence, une lumière particulière. Une lumière qui glisse sur les pierres blanches, qui s'attarde dans les sillons de lavande et qui laisse dans l'air une douceur presque palpable.</p>
+                <p>G. de Provence est née d'un désir : préserver cette authenticité tout en la réinterprétant avec élégance. Prendre la main d'un savoir-faire ancien pour le guider vers une esthétique moderne.</p>
+            </div>
+
+            <div class="image-section"></div>
+
+            <h3 style="text-align: center; margin-top: 60px; color: var(--navy);">Nos Engagements</h3>
+            <div class="engagements-list">
+                <div class="engagement-item">
+                    <h3>Origines maîtrisées</h3>
+                    <p>Ingrédients provençaux privilégiés, cultivés avec respect et passion.</p>
+                </div>
+                <div class="engagement-item">
+                    <h3>Formules propres</h3>
+                    <p>Naturelles, certifiées BIO, transparentes et respectueuses de votre peau.</p>
+                </div>
+                <div class="engagement-item">
+                    <h3>Respect du territoire</h3>
+                    <p>Production locale qui valorise le savoir-faire provençal.</p>
+                </div>
+                <div class="engagement-item">
+                    <h3>Écoresponsabilité</h3>
+                    <p>Packaging recyclé, matières premières durables, processus maîtrisés.</p>
+                </div>
+                <div class="engagement-item">
+                    <h3>Excellence sensorielle</h3>
+                    <p>Textures douces, parfums authentiques, fabrication soignée.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Hôtels de Luxe -->
+    <section id="hotels">
+        <div class="section-content">
+            <h2>Hôtels de Luxe</h2>
+            <div class="centered-text">
+                <p>G. de Provence accompagne les établissements hôteliers d'exception dans la création d'une expérience olfactive et sensorielle unique.</p>
+                <p>Nous proposons une gamme complète de soins et d'aménités qui reflètent l'élégance discrète et le raffinement de votre établissement.</p>
+            </div>
+
+            <h3 style="text-align: center; margin-top: 60px; color: var(--navy);">Nos Signatures Olfactives</h3>
+            <div class="signatures-container">
+                <div class="signature-item">
+                    <div class="signature-icon">🌿</div>
+                    <p class="signature-name">Lavande</p>
+                </div>
+                <div class="signature-item">
+                    <div class="signature-icon">🌰</div>
+                    <p class="signature-name">Amande Douce</p>
+                </div>
+                <div class="signature-item">
+                    <div class="signature-icon">🥛</div>
+                    <p class="signature-name">Lait d'Ânesse</p>
+                </div>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>Aménités Chambres</h3>
+                    <p>Shampooings, gels douche, savons et soins corporels aux parfums authentiques de Provence.</p>
+                </div>
+                <div class="card">
+                    <h3>Collection Prestige</h3>
+                    <p>Gamme haut de gamme pour suites et établissements d'exception.</p>
+                </div>
+                <div class="card">
+                    <h3>Solutions Sur-Mesure</h3>
+                    <p>Créations personnalisées adaptées à l'identité de votre établissement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Spas -->
+    <section id="spas">
+        <div class="section-content">
+            <h2>Spas &amp; Bien-Être</h2>
+            <div class="centered-text">
+                <p>Pour les espaces dédiés au bien-être, G. de Provence conçoit des protocoles de soins inspirés des traditions provençales.</p>
+                <p>Nos formules naturelles et certifiées offrent une expérience sensorielle profonde, alliant efficacité et plaisir des sens.</p>
+            </div>
+
+            <h3 style="text-align: center; margin-top: 60px; color: var(--navy);">Nos Signatures Olfactives</h3>
+            <div class="signatures-container">
+                <div class="signature-item">
+                    <div class="signature-icon">🌿</div>
+                    <p class="signature-name">Lavande</p>
+                </div>
+                <div class="signature-item">
+                    <div class="signature-icon">🌰</div>
+                    <p class="signature-name">Amande Douce</p>
+                </div>
+                <div class="signature-item">
+                    <div class="signature-icon">🥛</div>
+                    <p class="signature-name">Lait d'Ânesse</p>
+                </div>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>Soins du Corps</h3>
+                    <p>Huiles de massage, gommages, baumes et crèmes aux actifs naturels provençaux.</p>
+                </div>
+                <div class="card">
+                    <h3>Soins du Visage</h3>
+                    <p>Protocoles complets pour sublimer la peau avec douceur et efficacité.</p>
+                </div>
+                <div class="card">
+                    <h3>Rituels Signature</h3>
+                    <p>Expériences sensorielles complètes inspirées de la Provence authentique.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Signature Lobby -->
+    <section id="signature-lobby">
+        <div class="section-content">
+            <h2>Signature pour Lobby</h2>
+            <div class="centered-text">
+                <p>Créez une atmosphère unique dès l'entrée de votre établissement avec nos créations exclusives pour espaces de réception.</p>
+                <p>Nos bougies et diffuseurs en céramique, fruits de l'artisanat provençal, sont conçus avec de la cire végétale et des fragrances sur-mesure.</p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>Bougies en Céramique</h3>
+                    <p>Créations artisanales provençales avec cire végétale et parfums personnalisés selon vos préférences.</p>
+                </div>
+                <div class="card">
+                    <h3>Diffuseurs de Parfum</h3>
+                    <p>Diffuseurs en céramique élégants pour une ambiance olfactive continue et raffinée.</p>
+                </div>
+                <div class="card">
+                    <h3>Signatures Personnalisées</h3>
+                    <p>Fragrances variables adaptées aux sensibilités et à l'identité de votre établissement.</p>
+                </div>
+            </div>
+
+            <div class="centered-text" style="margin-top: 50px;">
+                <p style="font-style: italic; color: var(--lavender);">Chaque création est unique, façonnée pour refléter l'âme de votre lieu.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section id="contact">
+        <div class="section-content">
+            <h2>Contactez-nous</h2>
+            <div class="centered-text">
+                <p>Vous représentez un hôtel de luxe ou un spa et souhaitez découvrir nos créations ?</p>
+                <p>Nous serions ravis d'échanger avec vous sur vos besoins et de créer ensemble une expérience unique.</p>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="etablissement">Type d'établissement *</label>
+                    <select id="etablissement" name="etablissement" required>
+                        <option value="">Sélectionnez...</option>
+                        <option value="hotel">Hôtel de Luxe</option>
+                        <option value="spa">Spa</option>
+                        <option value="hotel-spa">Hôtel avec Spa</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nom">Nom de l'établissement *</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact">Nom et prénom du contact *</label>
+                    <input type="text" id="contact" name="contact" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telephone">Téléphone</label>
+                    <input type="tel" id="telephone" name="telephone">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Votre message *</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Envoyer</button>
+
+                <div class="success-message" id="successMessage">
+                    Merci pour votre message ! Nous vous répondrons dans les plus brefs délais.
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 G. de Provence - Tous droits réservés</p>
+        <p class="footer-tagline">Le luxe naturel</p>
+    </footer>
+
+    <script>
+        // Toggle menu mobile
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Fermer le menu mobile si ouvert
+                    document.getElementById('navLinks').classList.remove('active');
+                }
+            });
+        });
+
+        // Formulaire de contact
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Ici vous pouvez ajouter l'envoi du formulaire vers un service d'email
+            // Pour l'instant, on simule un envoi réussi
+            
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+            
+            // Réinitialiser le formulaire
+            this.reset();
+            
+            // Masquer le message après 5 secondes
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        });
+
+        // Effet parallaxe léger sur le hero banner
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const heroBanner = document.querySelector('.hero-banner');
+            if (heroBanner) {
+                heroBanner.style.transform = 'translateY(' + (scrolled * 0.5) + 'px)';
+            }
+        });
+    </script>
+</body>
+</html>
