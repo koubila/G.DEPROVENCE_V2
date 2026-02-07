@@ -20,11 +20,16 @@
             --text-dark: #2C2C2C;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Georgia', 'Times New Roman', serif;
             color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
+            background-color: var(--cream);
         }
 
         /* Header Banner avec image abeille */
@@ -95,6 +100,7 @@
             display: flex;
             gap: 35px;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
@@ -107,13 +113,31 @@
             font-weight: 500;
             transition: color 0.3s;
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .nav-links a:hover {
             color: var(--lavender);
         }
 
-        .nav-links a::after {
+        /* Indicateur de menu déroulant */
+        .nav-links .has-subnav > a::after {
+            content: '▼';
+            font-size: 0.7em;
+            margin-left: 5px;
+            transition: transform 0.3s;
+            color: var(--lavender);
+            opacity: 0.7;
+        }
+        
+        .nav-links .has-subnav:hover > a::after {
+            transform: rotate(180deg);
+            opacity: 1;
+        }
+
+        .nav-links a::before {
             content: '';
             position: absolute;
             bottom: -5px;
@@ -124,8 +148,69 @@
             transition: width 0.3s;
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover::before {
             width: 100%;
+        }
+
+        /* --- Gestion de la Sous-Navbar (Subnav) --- */
+        .has-subnav {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .subnav {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background-color: var(--white);
+            min-width: 280px;
+            padding: 25px;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .subnav::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0 8px 8px 8px;
+            border-style: solid;
+            border-color: transparent transparent var(--white) transparent;
+        }
+
+        .subnav a {
+            text-transform: none;
+            font-size: 1.05rem;
+            color: var(--navy);
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-weight: 400;
+            font-family: 'Georgia', serif;
+        }
+
+        .subnav a:last-child {
+            border-bottom: none;
+        }
+
+        .subnav a:hover {
+            color: var(--lavender);
+            padding-left: 10px;
+        }
+
+        .has-subnav:hover .subnav {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(15px);
         }
 
         .mobile-toggle {
@@ -142,13 +227,15 @@
             transition: 0.3s;
         }
 
-        /* Sections */
+        /* Sections et Offset pour le scroll */
         section {
             min-height: 80vh;
             padding: 100px 40px;
             display: flex;
             align-items: center;
             justify-content: center;
+            /* Ajout de scroll-margin-top pour compenser la navbar */
+            scroll-margin-top: 120px; 
         }
 
         .section-content {
@@ -161,7 +248,7 @@
         }
 
         #maison {
-            background-color: #EAE5DF;
+            background: linear-gradient(180deg, #EDE6F0 0%, #F5F2ED 100%);
         }
 
         #hotels {
@@ -169,15 +256,15 @@
         }
 
         #spas {
-            background-color: #E8E0D8;
+            background: linear-gradient(180deg, #F0ECE8 0%, #F5F2ED 100%);
         }
 
         #signature-lobby {
-            background-color: var(--cream);
+            background-color: #EDE6F0;
         }
 
         #contact {
-            background-color: #DDD8D0;
+            background-color: var(--cream);
         }
 
         /* Typography */
@@ -234,6 +321,9 @@
             box-shadow: 0 8px 30px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
             text-align: center;
+            border-radius: 4px;
+            /* Ajout de scroll-margin-top pour que le titre de la carte ne soit pas caché */
+            scroll-margin-top: 130px; 
         }
 
         .card:hover {
@@ -243,11 +333,13 @@
 
         .card h3 {
             margin-bottom: 15px;
+            color: var(--navy);
         }
 
         .card p {
             text-align: center;
             font-size: 1rem;
+            color: var(--text-dark);
         }
 
         /* Engagements liste */
@@ -338,6 +430,7 @@
             font-family: inherit;
             font-size: 1rem;
             transition: border-color 0.3s;
+            background-color: #FAFAFA;
         }
 
         .form-group input:focus,
@@ -345,6 +438,7 @@
         .form-group select:focus {
             outline: none;
             border-color: var(--lavender);
+            background-color: #FFF;
         }
 
         .form-group textarea {
@@ -364,6 +458,7 @@
             transition: background 0.3s, transform 0.2s;
             width: 100%;
             font-family: inherit;
+            border-radius: 2px;
         }
 
         .submit-btn:hover {
@@ -379,6 +474,7 @@
             margin-top: 20px;
             text-align: center;
             font-size: 1.1rem;
+            border-radius: 4px;
         }
 
         /* Footer */
@@ -411,8 +507,8 @@
             box-shadow: 0 5px 30px rgba(0,0,0,0.2);
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
+        /* Responsive Design */
+        @media (max-width: 960px) {
             .mobile-toggle {
                 display: flex;
             }
@@ -424,15 +520,40 @@
                 width: 100%;
                 background: var(--white);
                 flex-direction: column;
-                padding: 20px;
+                align-items: flex-start;
+                padding: 20px 40px;
                 box-shadow: 0 5px 10px rgba(0,0,0,0.1);
                 max-height: 0;
                 overflow: hidden;
-                transition: max-height 0.3s;
+                transition: max-height 0.4s ease-out;
+                gap: 20px;
             }
 
             .nav-links.active {
-                max-height: 500px;
+                max-height: 1000px;
+            }
+
+            .subnav {
+                position: static;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                box-shadow: none;
+                padding-left: 20px;
+                margin-top: 10px;
+                width: 100%;
+                min-width: auto;
+                display: none;
+                border-left: 2px solid var(--lavender);
+                background-color: #fcfcfc;
+            }
+
+            .subnav::before {
+                display: none;
+            }
+            
+            .has-subnav.active .subnav {
+                display: flex;
             }
 
             .nav-container {
@@ -495,15 +616,46 @@
                 <span></span>
             </div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#maison">Notre Maison</a></li>
-                <li><a href="#hotels">Hôtels de Luxe</a></li>
-                <li><a href="#spas">Spas</a></li>
-                <li><a href="#signature-lobby">Signature Lobby</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <a href="#accueil">Accueil</a>
+                </li>
+            
+                <li class="has-subnav">
+                    <a href="#hotels">Hôtels de Luxe</a>
+                    <div class="subnav">
+                        <a href="#amenites-chambres">Aménités Chambres</a>
+                        <a href="#collection-prestige">Collection Prestige</a>
+                        <a href="#solutions-sur-mesure">Solutions Sur-Mesure</a>
+                    </div>
+                </li>
+            
+                <li class="has-subnav">
+                    <a href="#spas">Spas</a>
+                    <div class="subnav">
+                        <a href="#soins-corps">Soins du Corps</a>
+                        <a href="#soins-visage">Soins du Visage</a>
+                        <a href="#rituels-signature">Rituels Signature</a>
+                    </div>
+                </li>
+            
+                <li class="has-subnav">
+                    <a href="#signature-lobby">Signature Lobby</a>
+                    <div class="subnav">
+                        <a href="#bougies-ceramique">Bougies en Céramique</a>
+                        <a href="#diffuseurs-parfum">Diffuseurs de Parfum</a>
+                        <a href="#signatures-personnalisees">Signatures Personnalisées</a>
+                    </div>
+                </li>
+            
+                <li>
+                    <a href="#contact">Contact</a>
+                </li>
             </ul>
         </div>
     </nav>
+
+
+
 
     <!-- Section Accueil -->
     <section id="accueil">
@@ -579,16 +731,16 @@
                 </div>
             </div>
 
-            <div class="cards-grid">
-                <div class="card">
+            <div class="cards-grid hotels-cards">
+                <div class="card" id="amenites-chambres">
                     <h3>Aménités Chambres</h3>
                     <p>Shampooings, gels douche, savons et soins corporels aux parfums authentiques de Provence.</p>
                 </div>
-                <div class="card">
+                <div class="card" id="collection-prestige">
                     <h3>Collection Prestige</h3>
                     <p>Gamme haut de gamme pour suites et établissements d'exception.</p>
                 </div>
-                <div class="card">
+                <div class="card" id="solutions-sur-mesure">
                     <h3>Solutions Sur-Mesure</h3>
                     <p>Créations personnalisées adaptées à l'identité de votre établissement.</p>
                 </div>
@@ -621,16 +773,16 @@
                 </div>
             </div>
 
-            <div class="cards-grid">
-                <div class="card">
+            <div class="cards-grid spas-cards">
+                <div class="card" id="soins-corps">
                     <h3>Soins du Corps</h3>
                     <p>Huiles de massage, gommages, baumes et crèmes aux actifs naturels provençaux.</p>
                 </div>
-                <div class="card">
+                <div class="card" id="soins-visage">
                     <h3>Soins du Visage</h3>
                     <p>Protocoles complets pour sublimer la peau avec douceur et efficacité.</p>
                 </div>
-                <div class="card">
+                <div class="card" id="rituels-signature">
                     <h3>Rituels Signature</h3>
                     <p>Expériences sensorielles complètes inspirées de la Provence authentique.</p>
                 </div>
@@ -647,16 +799,16 @@
                 <p>Nos bougies et diffuseurs en céramique, fruits de l'artisanat provençal, sont conçus avec de la cire végétale et des fragrances sur-mesure.</p>
             </div>
 
-            <div class="cards-grid">
-                <div class="card">
+            <div class="cards-grid lobby-cards">
+                <div class="card" id="bougies-ceramique">
                     <h3>Bougies en Céramique</h3>
                     <p>Créations artisanales provençales avec cire végétale et parfums personnalisés selon vos préférences.</p>
                 </div>
-                <div class="card">
+                <div class="card" id="diffuseurs-parfum">
                     <h3>Diffuseurs de Parfum</h3>
                     <p>Diffuseurs en céramique élégants pour une ambiance olfactive continue et raffinée.</p>
                 </div>
-                <div class="card">
+                <div class="card" id="signatures-personnalisees">
                     <h3>Signatures Personnalisées</h3>
                     <p>Fragrances variables adaptées aux sensibilités et à l'identité de votre établissement.</p>
                 </div>
@@ -735,18 +887,56 @@
             navLinks.classList.toggle('active');
         }
 
-        // Smooth scroll
+        // Gestion des sous-menus sur mobile (au clic)
+        document.querySelectorAll('.has-subnav > a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (window.innerWidth <= 960) {
+                    const parentLi = this.parentElement;
+                    parentLi.classList.toggle('active');
+                    
+                    const subLinks = parentLi.querySelectorAll('.subnav a');
+                    subLinks.forEach(sub => {
+                        sub.addEventListener('click', () => {
+                            setTimeout(() => {
+                                document.getElementById('navLinks').classList.remove('active');
+                            }, 300);
+                        });
+                    });
+                }
+            });
+        });
+
+        // Smooth scroll avec compensation de la navbar
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // Fermer le menu mobile si ouvert
-                    document.getElementById('navLinks').classList.remove('active');
+                const href = this.getAttribute('href');
+                
+                // Permet au menu mobile de se fermer avant le scroll si besoin
+                if (window.innerWidth <= 960) {
+                    // Note: On ne ferme pas immédiatement si c'est un parent de submenu
+                    if (!this.parentElement.classList.contains('has-subnav')) {
+                         document.getElementById('navLinks').classList.remove('active');
+                    }
+                }
+
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        // 1. Récupérer la hauteur de la navbar
+                        const navHeight = document.querySelector('nav').offsetHeight;
+                        
+                        // 2. Calculer la position de l'élément cible
+                        const elementPosition = target.getBoundingClientRect().top;
+                        
+                        // 3. Calculer la position de scroll finale (position actuelle + position élément - hauteur navbar - marge de confort)
+                        const offsetPosition = elementPosition + window.pageYOffset - navHeight - 20;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
                 }
             });
         });
@@ -754,17 +944,9 @@
         // Formulaire de contact
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // Ici vous pouvez ajouter l'envoi du formulaire vers un service d'email
-            // Pour l'instant, on simule un envoi réussi
-            
             const successMessage = document.getElementById('successMessage');
             successMessage.style.display = 'block';
-            
-            // Réinitialiser le formulaire
             this.reset();
-            
-            // Masquer le message après 5 secondes
             setTimeout(() => {
                 successMessage.style.display = 'none';
             }, 5000);
